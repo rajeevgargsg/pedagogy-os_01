@@ -350,7 +350,9 @@ def init_state():
             st.session_state[k] = v
 
 init_state()
-
+# Auto-load from Streamlit secrets if available
+if "GROQ_API_KEY" in st.secrets and not st.session_state.api_key:
+    st.session_state.api_key = st.secrets["GROQ_API_KEY"]
 # ─── API helpers ───────────────────────────────────────────────────────────────
 def get_client():
     key = st.session_state.api_key.strip()
